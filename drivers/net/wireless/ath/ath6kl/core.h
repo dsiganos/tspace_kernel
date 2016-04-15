@@ -807,6 +807,7 @@ struct ath6kl {
 		u32 board_addr;
 		u32 refclk_hz;
 		u32 uarttx_pin;
+		u32 uarttx_rate;
 		u32 testscript_addr;
 		enum wmi_phy_cap cap;
 
