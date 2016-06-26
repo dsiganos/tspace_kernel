@@ -182,3 +182,38 @@ endif # PHYLIB
 config MICREL_KS8995MA
 	tristate "Micrel KS8995MA 5-ports 10/100 managed Ethernet switch"
 	depends on SPI
+
+config MICREL_KSZ8895PHY
+	tristate "Driver for Micrel KSZ8895 Switch PHYs"
+	help
+	Supports the KSZ8895, KSZ8864 Switch PHYs.
+	If say Y, select one and only one MIIM bus interface from
+	KSPHY_BUS_MDIO or KSPHY_BUS_SPI.
+
+config KSPHY_FOR_KSZ8864
+	bool "Driver for Micrel KSZ8864 Switch PHYs"
+	depends on MICREL_KSZ8895PHY
+	help
+	Say Y, if the device is KSZ8864 Switch. Say N, if the device is
+	KSZ8895 Switch.
+
+config KSPHY_MULTI_ETH
+	bool "Micrel KSZ8895 is configured for multiple logical Network interface"
+	depends on MICREL_KSZ8895PHY
+    	help
+	Each Switch port is configured for a delegated Network Interface,
+        For examplem "eth0" is communicating with Switch Port 1 and
+        "eth1" is communicating with Switch Port 2.
+
+config KSPHY_BUS_MDIO
+        bool "MDIO bus driver for Micrel KSZ8895 Switch PHYs"
+        depends on MICREL_KSZ8895PHY
+        default y
+        help
+        Access Micrel KSZ8895 Switch PHY device through MDC/MDIO bus.
+
+config KSPHY_BUS_SPI
+        bool "SPI bus driver for Micrel KSZ8895 Switch PHYs"
+        depends on MICREL_KSZ8895PHY && KSPHY_BUS_MDIO = n
+        help
+        Access Micrel KSZ8895 Switch PHY device through SPI bus.
