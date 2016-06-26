@@ -794,6 +794,7 @@ EXPORT_SYMBOL(genphy_config_aneg);
  */
 int genphy_update_link(struct phy_device *phydev)
 {
+#if 0
 	int status;
 
 	/* Do a fake read */
@@ -812,7 +813,8 @@ int genphy_update_link(struct phy_device *phydev)
 		phydev->link = 0;
 	else
 		phydev->link = 1;
-
+#endif
+	phydev->link = 1;
 	return 0;
 }
 EXPORT_SYMBOL(genphy_update_link);
